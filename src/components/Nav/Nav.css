@@ -1,0 +1,6 @@
+.nav {
+  display: flex;
+  justify-content: space-around;
+  width: 70%;
+  padding-top: 1rem;
+}
