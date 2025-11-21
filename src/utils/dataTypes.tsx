@@ -1,4 +1,5 @@
-export type ScoreRowTypes = {
+export type Score = {
+  score_id: number;
   username: string;
   score: number;
 };
