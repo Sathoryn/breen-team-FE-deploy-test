@@ -1,16 +1,22 @@
 .scoreRow {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
   width: 100%;
-  gap: 3rem;
-}
-/* 
-@media only screen and (max-width: 900px) {
-  .scoreRow {
-    width: 100%;
+  background-color: var(--polar-night-dark);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 1);
+  color: var(--snow-storm-light);
+  font-size: 1.75rem;
+
+  .scoreRow__rank {
+    width: 3rem;
+  }
+  .scoreRow__username {
+    max-width: 15rem;
+    flex-grow: 1;
+  }
+  .scoreRow__score {
+    flex-grow: 1;
   }
 }
-
-@media only screen and (min-width: 1000px) {
-} */

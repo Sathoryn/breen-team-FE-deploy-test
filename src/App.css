@@ -3,8 +3,10 @@
   margin: 0;
   box-sizing: border-box;
   font-family: 'Jersey 25', Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  line-height: 2.25rem;
 }
 body {
   min-height: 100vh;
-  background-color: var(--polar-night-darker);
+  background-color: var(--polar-night-mid);
 }

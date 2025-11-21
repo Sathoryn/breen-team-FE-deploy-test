@@ -1,15 +1,28 @@
 .nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
-  padding-top: 1rem;
   position: fixed;
   bottom: 0;
-  background-color: var(--aurora-yellow);
+  background-color: var(--snow-storm-mid);
   align-items: center;
+  gap: 1rem;
 
   a {
+    display: block;
+    font-size: 1.75rem;
     text-decoration: none;
     color: var(--polar-night-darker);
+    padding: 0.5rem 1rem;
+
+    &.active {
+      background-color: var(--frost-dark-blue);
+      color: var(--snow-storm-light);
+      position: relative;
+      top: -20px;
+      height: calc(100% + 200px);
+      padding: 1rem 1rem 0;
+      box-shadow: 0 20px 0 var(--frost-dark-blue);
+    }
   }
 }

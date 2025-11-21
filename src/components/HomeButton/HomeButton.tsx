@@ -5,7 +5,7 @@ import './HomeButton.css';
 
 type HomeButtonProps = {
   to: string;
-  animate: boolean;
+  animate?: boolean;
   children: ReactNode;
 };
 
