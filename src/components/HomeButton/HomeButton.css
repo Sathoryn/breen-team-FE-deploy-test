@@ -1,0 +1,49 @@
+@keyframes swell {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.homeButton {
+  background-color: var(--aurora-yellow);
+  color: var(--polar-night-darker);
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+  padding: 2rem 0;
+  font-size: 2rem;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    background-color: #000;
+    top: 20px;
+    left: 5px;
+    z-index: -1;
+  }
+
+  &.animate {
+    animation: swell 1s infinite linear;
+  }
+
+  &:hover {
+    color: #fff;
+    top: -5px;
+    animation: none;
+    transform: scale(1.05);
+  }
+}
