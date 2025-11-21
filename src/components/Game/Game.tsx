@@ -3,7 +3,7 @@ import initGame from '../../game/initGame';
 import './Game.css';
 
 const Game = () => {
-  const gameRef = useRef(null);
+  const gameRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     initGame(gameRef);
