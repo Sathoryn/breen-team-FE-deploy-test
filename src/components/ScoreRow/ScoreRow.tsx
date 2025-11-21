@@ -1,11 +1,17 @@
 import './ScoreRow.css';
-import type { Score } from '../../utils/dataTypes';
+import type { Score } from '../../types';
 
-const ScoreRow = ({ score, username }: Score) => {
+type ScoreRowProps = {
+  score: Score;
+  rank: number;
+};
+
+const ScoreRow = ({ score: { username, score }, rank }: ScoreRowProps) => {
   return (
     <li className='scoreRow'>
-      <p className='scoreRow__username'>{username}</p>
-      <p className='scoreRow__score'>{score}</p>
+      <span className='scoreRow__rank'>{rank}.</span>
+      <span className='scoreRow__username'>{username}</span>
+      <span className='scoreRow__score'>{score}</span>
     </li>
   );
 };
