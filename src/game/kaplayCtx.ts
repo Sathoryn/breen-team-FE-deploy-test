@@ -1,6 +1,7 @@
+import type { RefObject } from 'react';
 import kaplay from 'kaplay';
 
-export default function initKaplay() {
+export default function initKaplay(gameRef: RefObject) {
   return kaplay({
     width: 1282,
     height: 720,
@@ -8,7 +9,7 @@ export default function initKaplay() {
     global: false,
     debug: true, // TODO: put back to false in prod
     debugKey: 'f1',
-    canvas: document.getElementById('game') as HTMLCanvasElement,
+    canvas: gameRef.current,
     pixelDensity: devicePixelRatio,
     crisp: true,
     maxFPS: 60

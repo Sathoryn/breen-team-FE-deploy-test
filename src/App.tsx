@@ -1,17 +1,16 @@
+import { Routes, Route } from 'react-router';
+import HomePage from './pages/HomePage';
+import LeaderboardPage from './pages/LeaderboardPage';
+import GamePage from './pages/GamePage';
 
-import { Routes, Route } from "react-router";
-import Home from "./Home/home";
-import Leaderboard from "./Leaderboard/leaderboard";
-
-function App() {
+const App = () => {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route path='/' element={<HomePage />} />
+      <Route path='/leaderboard' element={<LeaderboardPage />} />
+      <Route path='/game' element={<GamePage />} />
+    </Routes>
   );
-}
+};
 
 export default App;
