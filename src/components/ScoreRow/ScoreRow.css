@@ -1,0 +1,16 @@
+.scoreRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 3rem;
+}
+/* 
+@media only screen and (max-width: 900px) {
+  .scoreRow {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+} */

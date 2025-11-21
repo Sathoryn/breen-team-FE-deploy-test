@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router';
 import HomePage from './pages/HomePage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import GamePage from './pages/GamePage';
+import './App.css';
 
 const App = () => {
   return (
