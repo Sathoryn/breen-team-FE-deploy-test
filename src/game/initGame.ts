@@ -25,6 +25,7 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
   });
 
   k.scene('game', () => {
+    k.debug.log("Scene started");
     k.setGravity(4000);
 
     k.setBackground(100, 10, 102);
@@ -42,17 +43,17 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
       k.stay(['gameOver'])
     ]);
 
-    player.onCollide('scorePoint', () => {
-      scoreLabel.value += 1;
-      scoreLabel.text = `score: ${scoreLabel.value}`;
-    });
-
     player.onUpdate(() => {
       k.onKeyPress('space', () => {
         if (player.isGrounded()) {
-          player.jump(1400);
+          player.jump(1500);
         }
       });
+    });
+
+    player.onCollide('scorePoint', () => {
+      scoreLabel.value += 1;
+      scoreLabel.text = `score: ${scoreLabel.value}`;
     });
 
     player.onCollide('mob', () => {
@@ -68,5 +69,5 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
     addButton(k, 'Main Menu', k.vec2(200, 200), 'mainMenu');
   });
 
-  k.go('game', {});
+  k.go('game');
 }
