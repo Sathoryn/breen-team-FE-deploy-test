@@ -8,4 +8,7 @@ export type MinesweeperCellData = {
   x: number;
   y: number;
   show: boolean;
+  bug: boolean;
+  clear: boolean;
+  proximity: boolean;
 };

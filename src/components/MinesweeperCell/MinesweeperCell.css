@@ -1,11 +1,11 @@
 .minesweeperCell {
-  width: 1rem;
-  height: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
   background-color: var(--snow-storm-dark);
   border-radius: 0.25rem;
   cursor: pointer;
 
   &.show {
-    background-color: transparent;
+    background-color: var(--polar-night-darker);
   }
 }
