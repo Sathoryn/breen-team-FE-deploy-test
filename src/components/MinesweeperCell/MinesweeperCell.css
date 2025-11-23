@@ -6,6 +6,6 @@
   cursor: pointer;
 
   &.show {
-    background-color: var(--polar-night-darker);
+    background-color: var(--polar-night-dark);
   }
 }

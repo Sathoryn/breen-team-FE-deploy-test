@@ -1,17 +1,19 @@
 import classNames from 'classnames';
-import { IoBugSharp } from 'react-icons/io5';
+import { IoBugSharp, IoFlag } from 'react-icons/io5';
 import type { SyntheticEvent } from 'react';
 import type { MinesweeperCellData } from '../../types';
 import './MinesweeperCell.css';
 
 type MinesweeperCellProps = {
   cell: MinesweeperCellData;
-  clickHandler: (e: SyntheticEvent, x: number, y: number) => void;
+  leftClickHandler: (x: number, y: number) => void;
+  rightClickHandler: (e: SyntheticEvent, x: number, y: number) => void;
 };
 
 const MinesweeperCell = ({
-  cell: { x, y, show, bug },
-  clickHandler,
+  cell: { x, y, show, bug, flag },
+  leftClickHandler,
+  rightClickHandler,
   ...rest
 }: MinesweeperCellProps) => {
   const cellClasses = classNames({
@@ -19,7 +21,13 @@ const MinesweeperCell = ({
     show
   });
   return (
-    <div className={cellClasses} onClick={e => clickHandler(e, x, y)} {...rest}>
+    <div
+      className={cellClasses}
+      onClick={() => leftClickHandler(x, y)}
+      onContextMenu={e => rightClickHandler(e, x, y)}
+      {...rest}
+    >
+      {flag && <IoFlag />}
       {bug && <IoBugSharp />}
     </div>
   );

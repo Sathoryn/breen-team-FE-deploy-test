@@ -11,4 +11,5 @@ export type MinesweeperCellData = {
   bug: boolean;
   clear: boolean;
   proximity: boolean;
+  flag: boolean;
 };
