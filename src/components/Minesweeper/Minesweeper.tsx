@@ -1,4 +1,6 @@
 import { useEffect, useState, type SyntheticEvent } from 'react';
+import { IoFlag } from 'react-icons/io5';
+import { FaClock } from 'react-icons/fa6';
 import MinesweeperCell from '../MinesweeperCell/MinesweeperCell';
 import type { MinesweeperCellData } from '../../types';
 import './Minesweeper.css';
@@ -71,7 +73,16 @@ const Minesweeper = () => {
   return (
     <main className='minesweeper'>
       <h1 className='minesweeper__title'>Debugger</h1>
-      <div>{flags}</div>
+      <div className='minesweeper__details'>
+        <span>
+          <IoFlag />
+          {flags}
+        </span>
+        <span>
+          <FaClock />
+          {timer}
+        </span>
+      </div>
       <div
         className='minesweeper__container'
         style={{ gridTemplateColumns: `repeat(${dimensions[0]}, 1fr)` }}
