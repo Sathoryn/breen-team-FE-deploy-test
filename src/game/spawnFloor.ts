@@ -14,7 +14,6 @@ export function addFloorSprites(k: KAPLAYCtx) {
     k.body({ isStatic: true }),
     'floorSpriteTwo'
   ]);
-  k.debug.log(typeof firstTile);
 
   return [firstTile, secondTile];
 }
