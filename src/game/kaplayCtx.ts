@@ -1,7 +1,7 @@
 import type { RefObject } from 'react';
 import kaplay from 'kaplay';
 
-export default function initKaplay(gameRef: RefObject<HTMLCanvasElement | undefined>) {
+export default function initKaplay(gameRef: RefObject<HTMLCanvasElement>) {
   return kaplay({
     width: 1282,
     height: 720,
