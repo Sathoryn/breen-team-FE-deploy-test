@@ -14,17 +14,17 @@ export function spawnCoin(k: KAPLAYCtx, spacing: number) {
 
 export function spawnCoins(k: KAPLAYCtx) {
   k.wait(k.rand(1, 3), () => {
-    const amount = k.randi(1, 3);
-    k.debug.log('coin()', amount);
+    const amount = k.randi(1, 4);
+    // k.debug.log('coin()', amount);
 
     spawnCoin(k, 0);
-    if (amount > 0) {
-      spawnCoin(k, 50);
-      k.debug.log('coin() called');
-    }
-    if (amount > 0) {
+    if (amount > 1) {
       spawnCoin(k, 100);
-      k.debug.log('coin() called');
+
+    }
+    if (amount > 2) {
+      spawnCoin(k, 200);
+     
     }
     spawnCoins(k);
   });

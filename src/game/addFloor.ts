@@ -5,6 +5,7 @@ export function addFloor(k: KAPLAYCtx) {
     k.pos(-100, k.height() - 50),
     k.rect(k.width() + 200, 20),
     k.area(),
-    k.body({ isStatic: true })
+    k.body({ isStatic: true }),
+    'floor'
   ]);
 }

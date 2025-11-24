@@ -19,9 +19,9 @@ export function groundMob(k: KAPLAYCtx) {
       shape: new k.Rect(k.vec2(0, 0), 40, 30)
     }),
     k.body(),
-    k.anchor('bot'),
     k.scale(2),
     k.move(k.vec2(-1, 0), 400),
+    k.anchor('bot'),
     k.offscreen({ destroy: true }),
     'mob'
   ]);
@@ -48,6 +48,7 @@ export function flyerMob(k: KAPLAYCtx) {
     k.anchor('bot'),
     k.scale(1.5),
     k.move(k.vec2(-1, 0), 400),
+    k.anchor('bot'),
     'mob'
   ]);
 }
@@ -55,14 +56,11 @@ export function flyerMob(k: KAPLAYCtx) {
 export function spawnMobs(k: KAPLAYCtx) {
   k.wait(k.rand(1, 3), () => {
     const mob = k.randi(1, 6);
-    k.debug.log('mob()', mob);
 
     if (mob === 5) {
       flyerMob(k);
-      k.debug.log('spawnFlyerMob() called');
     } else {
       groundMob(k);
-      k.debug.log('spawnGroundMob() called');
     }
     spawnMobs(k);
   });

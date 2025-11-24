@@ -30,7 +30,6 @@ export function loadGroundMobSprites(k: KAPLAYCtx) {
   });
 }
 
-
 export function loadFlyerMobSprites(k: KAPLAYCtx) {
   return k.loadSprite('mob', './mob.png', {
     sliceX: 1,
@@ -46,4 +45,6 @@ export function loadFlyerMobSprites(k: KAPLAYCtx) {
   });
 }
 
-// export function loadBackgroundSprites(k: KAPLAYCtx) {}
+export function loadFloorSprites(k: KAPLAYCtx) {
+  return k.loadSprite('floorSprite', './floor.png');
+}
