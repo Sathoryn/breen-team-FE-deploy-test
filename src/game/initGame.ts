@@ -1,16 +1,17 @@
 import type { RefObject } from 'react';
 import initKaplay from './kaplayCtx';
 import { addButton } from './button';
-import { loadPlayerSprites, loadMobSprites } from './loadGameSprites';
+import { loadPlayerSprites, loadGroundMobSprites } from './loadGameSprites';
 import { addPlayer } from './addPlayer';
 import { addFloor } from './addFloor';
-import { spawnMob } from './spawnMob';
+import { spawnMobs } from './spawnMobs';
+import { spawnCoins } from './spawnCoins';
 
 export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefined>): void {
   const k = initKaplay(gameRef);
 
   loadPlayerSprites(k);
-  loadMobSprites(k);
+  loadGroundMobSprites(k);
 
   k.scene('mainMenu', () => {
     k.setBackground(40, 100, 100);
@@ -25,7 +26,7 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
   });
 
   k.scene('game', () => {
-    k.debug.log("Scene started");
+    k.debug.log('Scene started');
     k.setGravity(4000);
 
     k.setBackground(100, 10, 102);
@@ -33,8 +34,12 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
     addButton(k, 'Game Over', k.vec2(200, 200), 'gameOver');
 
     const player = addPlayer(k);
+
     addFloor(k);
-    spawnMob(k);
+
+    spawnMobs(k);
+
+    spawnCoins(k);
 
     const scoreLabel = k.add([
       k.text('score: 0'),
@@ -54,6 +59,11 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
     player.onCollide('scorePoint', () => {
       scoreLabel.value += 1;
       scoreLabel.text = `score: ${scoreLabel.value}`;
+    });
+    player.onCollide('scoreCoin', () => {
+      scoreLabel.value += 10;
+      scoreLabel.text = `score: ${scoreLabel.value}`;
+      // k.destroy('scoreCoin')
     });
 
     player.onCollide('mob', () => {
