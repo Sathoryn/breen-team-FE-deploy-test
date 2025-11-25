@@ -92,6 +92,16 @@ const Minesweeper = () => {
     setGrid(newGrid);
   };
 
+  const handleGameReset = () => {
+    setGameOver(false);
+    setComplete(false);
+    setTime(0);
+    setStartTime(0);
+    setTimerRunning(false);
+    setFlags(calculateBugs(...gridDimensions));
+    setGrid(createGrid(...gridDimensions));
+  };
+
   return (
     <main className='minesweeper'>
       <h1 className='minesweeper__title'>Debugger</h1>
@@ -123,6 +133,7 @@ const Minesweeper = () => {
           ))
         )}
       </div>
+      {(gameOver || complete) && <Button onClick={handleGameReset}>Reset grid</Button>}
       {complete && <Button onClick={() => setShowModal(true)}>Submit Score</Button>}
       {showModal && (
         <ScoreSubmit onClose={() => setShowModal(false)}>
