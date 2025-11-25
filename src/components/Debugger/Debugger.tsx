@@ -1,4 +1,5 @@
-import { useEffect, useState, type SyntheticEvent } from 'react';
+import { useState, type SyntheticEvent } from 'react';
+import { useInterval } from 'usehooks-ts';
 import { IoFlag } from 'react-icons/io5';
 import { FaClock } from 'react-icons/fa6';
 import MinesweeperCell from '../MinesweeperCell/MinesweeperCell';
@@ -12,20 +13,34 @@ const Minesweeper = () => {
   const [dimensions, setDimensions] = useState<[number, number]>(gridDimensions);
   const [grid, setGrid] = useState<MinesweeperCellData[][]>(createGrid(...gridDimensions));
   const [time, setTime] = useState(0);
-  const [timer, setTimer] = useState(false);
+  const [startTime, setStartTime] = useState(0);
+  const [timerRunning, setTimerRunning] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [flags, setFlags] = useState(calculateBugs(...gridDimensions));
 
-  useEffect(() => {
-    //TODO: Make accurate and efficient
-    setInterval(() => {
-      setTime(currentTime => currentTime + 1);
-    }, 1000);
-  }, []);
+  useInterval(
+    () => {
+      console.log(startTime);
+      setTime(Math.round((Date.now() - startTime) / 1000));
+    },
+    timerRunning ? 200 : null
+  );
+
+  const startTimer = () => {
+    setTimerRunning(true);
+    setStartTime(Date.now());
+  };
+
+  const stopTimer = () => {
+    setTimerRunning(false);
+  };
 
   const handleLeftClick = (x: number, y: number) => {
+    if (!timerRunning) startTimer();
+
     if (grid[y][x].bug) {
       setGameOver(true);
+      stopTimer();
       const updated = revealBugs(grid);
       setGrid(updated);
     } else {
