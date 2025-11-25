@@ -3,6 +3,7 @@ import { useInterval } from 'usehooks-ts';
 import { IoMdSettings } from 'react-icons/io';
 import { IoFlag } from 'react-icons/io5';
 import { FaClock } from 'react-icons/fa6';
+import Nav from '../Nav/Nav';
 import Modal from '../Modal/Modal';
 import MinesweeperCell from '../DebuggerCell/DebuggerCell';
 import Button from '../Button/Button';
@@ -172,6 +173,7 @@ const Minesweeper = () => {
           </form>
         </Modal>
       )}
+      <Nav />
     </main>
   );
 };

@@ -1,8 +1,9 @@
 import { useRef, useEffect, type RefObject } from 'react';
+import Nav from '../Nav/Nav';
 import initGame from '../../game/initGame';
-import './Game.css';
+import './Runner.css';
 
-const Game = () => {
+const Runner = () => {
   const gameRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
@@ -10,10 +11,13 @@ const Game = () => {
   }, []);
 
   return (
-    <div className='game'>
-      <canvas ref={gameRef}></canvas>
-    </div>
+    <>
+      <div className='game'>
+        <canvas ref={gameRef}></canvas>
+      </div>
+      <Nav />
+    </>
   );
 };
 
-export default Game;
+export default Runner;

@@ -1,13 +1,13 @@
-import type { MinesweeperCellData } from '../../types';
+import type { DebuggerCellData } from '../../types';
 
 export const calculateBugs = (x: number, y: number): number =>
   Math.round(((x * y) / 10) * (1 + (x * y) / 450));
 
 export const addBugToGrid = (
-  grid: MinesweeperCellData[][],
+  grid: DebuggerCellData[][],
   x: number,
   y: number
-): MinesweeperCellData[][] => {
+): DebuggerCellData[][] => {
   const newGrid = structuredClone(grid);
   const randomRow = Math.floor(Math.random() * y);
   const randomColumn = Math.floor(Math.random() * x);
@@ -18,7 +18,7 @@ export const addBugToGrid = (
   return newGrid;
 };
 
-export const createGrid = (x: number, y: number): MinesweeperCellData[][] => {
+export const createGrid = (x: number, y: number): DebuggerCellData[][] => {
   let grid = new Array(y).fill(new Array(x).fill(null));
 
   grid = grid.map((row, i) => {
@@ -41,8 +41,8 @@ export const createGrid = (x: number, y: number): MinesweeperCellData[][] => {
     grid = addBugToGrid(grid, x, y);
   }
 
-  grid.forEach((row: MinesweeperCellData[]) => {
-    row.forEach((cell: MinesweeperCellData) => {
+  grid.forEach((row: DebuggerCellData[]) => {
+    row.forEach((cell: DebuggerCellData) => {
       if (!cell.bug) {
         for (let i = cell.y - 1; i <= cell.y + 1; i++) {
           for (let j = cell.x - 1; j <= cell.x + 1; j++) {
@@ -61,8 +61,8 @@ export const createGrid = (x: number, y: number): MinesweeperCellData[][] => {
 export const revealGridRecursively = (
   x: number,
   y: number,
-  grid: MinesweeperCellData[][]
-): MinesweeperCellData[][] => {
+  grid: DebuggerCellData[][]
+): DebuggerCellData[][] => {
   if (!grid[y] || !grid[y][x]) return grid;
 
   const clickedCell = grid[y][x];
@@ -85,11 +85,11 @@ export const revealGridRecursively = (
   return newGrid;
 };
 
-export const revealBugs = (grid: MinesweeperCellData[][]) => {
+export const revealBugs = (grid: DebuggerCellData[][]) => {
   const newGrid = structuredClone(grid);
 
-  newGrid.forEach((row: MinesweeperCellData[]) => {
-    row.forEach((cell: MinesweeperCellData) => {
+  newGrid.forEach((row: DebuggerCellData[]) => {
+    row.forEach((cell: DebuggerCellData) => {
       if (cell.bug) cell.show = true;
     });
   });
