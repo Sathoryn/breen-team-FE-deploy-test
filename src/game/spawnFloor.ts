@@ -1,6 +1,6 @@
 import type { KAPLAYCtx } from 'kaplay';
 
-export function addFloorSprites(k: KAPLAYCtx) {
+export function spawnFloor(k: KAPLAYCtx) {
   const firstTile = k.add([
     k.sprite('floorSprite'),
     k.pos(0, k.height() - 50),

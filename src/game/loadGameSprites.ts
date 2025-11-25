@@ -1,7 +1,26 @@
 import type { KAPLAYCtx } from 'kaplay';
 
-export function loadPlayerSprites(k: KAPLAYCtx) {
-  k.loadSprite('player', './player.png', {
+export function loadSprites(k: KAPLAYCtx) {
+  k.loadSprite('floorSprite', './floor.png');
+  k.loadSprite('background', './background.jpg');
+  k.loadSprite('backgroundObject', './bigRock.png');
+  k.loadSprite('groundObstacle', './bigRock.png');
+  k.loadSprite('topObstacle', './bigRock.png');
+
+  k.loadSprite('player', './orc.png', {
+    sliceX: 4,
+    sliceY: 1,
+    anims: {
+      run: {
+        from: 0,
+        to: 3,
+        speed: 10,
+        loop: true
+      }
+    }
+  });
+
+  k.loadSprite('knife', './knives.png', {
     sliceX: 2,
     sliceY: 1,
     anims: {
@@ -13,38 +32,4 @@ export function loadPlayerSprites(k: KAPLAYCtx) {
       }
     }
   });
-}
-
-export function loadGroundMobSprites(k: KAPLAYCtx) {
-  return k.loadSprite('mob', './mob.png', {
-    sliceX: 1,
-    sliceY: 1,
-    anims: {
-      run: {
-        from: 0,
-        to: 0
-        // speed: 4,
-        // loop: true
-      }
-    }
-  });
-}
-
-export function loadFlyerMobSprites(k: KAPLAYCtx) {
-  return k.loadSprite('mob', './mob.png', {
-    sliceX: 1,
-    sliceY: 1,
-    anims: {
-      run: {
-        from: 0,
-        to: 0
-        // speed: 4,
-        // loop: true
-      }
-    }
-  });
-}
-
-export function loadFloorSprites(k: KAPLAYCtx) {
-  return k.loadSprite('floorSprite', './floor.png');
 }
