@@ -1,0 +1,13 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  gap: 1rem;
+  min-height: 300px;
+  border-radius: 0.5rem;
+  color: var(--aurora-red);
+  padding: 1rem;
+  text-align: center;
+}
