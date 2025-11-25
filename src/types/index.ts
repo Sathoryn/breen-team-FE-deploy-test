@@ -4,7 +4,7 @@ export type Score = {
   score: number;
 };
 
-export type MinesweeperCellData = {
+export type DebuggerCellData = {
   id: number;
   x: number;
   y: number;

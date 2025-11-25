@@ -26,10 +26,12 @@
   &.show::before {
     opacity: 0;
   }
-  &.bug {
+  &.show .bug {
     background-color: var(--aurora-red);
     color: var(--snow-storm-light);
     padding: 0.125rem;
+    position: relative;
+    z-index: 2;
   }
   .proximity1 {
     color: var(--frost-light-blue);
