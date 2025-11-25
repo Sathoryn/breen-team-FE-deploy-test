@@ -1,38 +1,31 @@
 import type { RefObject } from 'react';
 import initKaplay from './kaplayCtx';
+
 import { addButton } from './button';
+import { loadSprites } from './loadGameSprites';
+
+import { loadAudio } from './audio/loadAudio.ts';
+
 import {
-  loadPlayerSprites,
-  loadGroundObstacleSprite,
-  loadTopObstacleSprite,
-  loadFloorSprites,
-  loadKnifeSprite
-} from './loadGameSprites';
+  playMusic,
+  playgameOver,
+  playRunningSound,
+  playcatchKnifeSound
+} from './audio/playAudio.ts';
+
 import { spawnPlayer } from './spawnPlayer';
-import { floorColision } from './floorColision';
+import { floorColision } from './floorCollision.ts';
 import { spawnObstacles } from './spawnObstacles.ts';
 import { spawnKnives } from './spawnKnives.ts';
-import { loadMusic, playMusic } from './audio/loadMusic';
 import { floorAnim } from './floorAnim';
-import { loadGameOver } from './audio/loadGameOverSound';
-import { playgameOver } from './audio/loadGameOverSound';
-import { loadRunningSound } from './audio/runningsound';
-import { playRunningSound } from './audio/runningsound';
-import { loadCatchKnifeSound } from './audio/catchKnifeSound.ts';
-import { playcatchKnifeSound } from './audio/catchKnifeSound.ts';
+import { backgroundAnim } from './backgroundAnim.ts';
+import { spawnBackgroundObjects } from './spawnBackgroundObjects.ts';
 
 export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefined>): void {
   const k = initKaplay(gameRef);
 
-  loadPlayerSprites(k);
-  loadGroundObstacleSprite(k);
-  loadTopObstacleSprite(k);
-  loadFloorSprites(k);
-  loadKnifeSprite(k);
-  loadMusic(k);
-  loadGameOver(k);
-  loadRunningSound(k);
-  loadCatchKnifeSound(k);
+  loadSprites(k);
+  loadAudio(k);
 
   k.scene('mainMenu', () => {
     k.setBackground(40, 100, 100);
@@ -52,12 +45,14 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
 
     k.setGravity(4000);
 
-    k.setBackground(100, 10, 102);
     k.add([k.text('game'), k.pos(24, 24), { value: 0 }]);
     addButton(k, 'Game Over', k.vec2(200, 200), 'gameOver');
 
-    const player = spawnPlayer(k);
+    backgroundAnim(k);
 
+    k.setBackground(100, 10, 102);
+    spawnBackgroundObjects(k);
+    const player = spawnPlayer(k);
     floorColision(k);
     floorAnim(k);
     spawnObstacles(k);
@@ -88,9 +83,9 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
       scoreLabel.value += 1;
       scoreLabel.text = `score: ${scoreLabel.value}`;
     });
-    player.onCollide('scoreCoin', coin => {
+    player.onCollide('knife', knife => {
       playcatchKnifeSound(k);
-      k.destroy(coin);
+      k.destroy(knife);
       scoreLabel.value += 10;
       scoreLabel.text = `score: ${scoreLabel.value}`;
     });

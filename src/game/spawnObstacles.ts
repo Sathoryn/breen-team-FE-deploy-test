@@ -13,7 +13,7 @@ export function groundObstacles(k: KAPLAYCtx) {
   ]);
 
   k.add([
-    k.sprite('groundObstacle', { anim: 'run' }),
+    k.sprite('groundObstacle'),
     k.pos(k.width() + 100, k.height() - 60),
     k.area({
       shape: new k.Rect(k.vec2(0, 0), 40, 30)
@@ -40,7 +40,7 @@ export function topObstacles(k: KAPLAYCtx) {
   ]);
 
   k.add([
-    k.sprite('topObstacle', { anim: 'run' }),
+    k.sprite('topObstacle'),
     k.pos(k.width() + 100, k.height() - 300),
     k.area({
       shape: new k.Rect(k.vec2(0, 0), 40, 30)
@@ -48,16 +48,15 @@ export function topObstacles(k: KAPLAYCtx) {
     k.anchor('bot'),
     k.scale(1.5),
     k.move(k.vec2(-1, 0), 400),
-    k.anchor('bot'),
     'topObstacle'
   ]);
 }
 
 export function spawnObstacles(k: KAPLAYCtx) {
   k.wait(k.rand(1, 3), () => {
-    const mob = k.randi(1, 6);
+    const spawn = k.randi(1, 6);
 
-    if (mob === 5) {
+    if (spawn === 5) {
       topObstacles(k);
     } else {
       groundObstacles(k);
