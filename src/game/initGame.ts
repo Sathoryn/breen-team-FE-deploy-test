@@ -1,20 +1,38 @@
 import type { RefObject } from 'react';
 import initKaplay from './kaplayCtx';
 import { addButton } from './button';
-import { loadPlayerSprites, loadGroundMobSprites, loadFloorSprites } from './loadGameSprites';
-import { addPlayer } from './addPlayer';
-import { addFloor } from './addFloor';
-import { spawnMobs } from './spawnMobs';
-import { spawnCoins } from './spawnCoins';
-// import { addFloorSpriteOne, addFloorSpriteTwo } from './spawnFloor';
-import { addFloorSprites } from './spawnFloor';
+import {
+  loadPlayerSprites,
+  loadGroundObstacleSprite,
+  loadTopObstacleSprite,
+  loadFloorSprites,
+  loadKnifeSprite
+} from './loadGameSprites';
+import { spawnPlayer } from './spawnPlayer';
+import { floorColision } from './floorColision';
+import { spawnObstacles } from './spawnObstacles.ts';
+import { spawnKnives } from './spawnKnives.ts';
+import { loadMusic, playMusic } from './audio/loadMusic';
+import { floorAnim } from './floorAnim';
+import { loadGameOver } from './audio/loadGameOverSound';
+import { playgameOver } from './audio/loadGameOverSound';
+import { loadRunningSound } from './audio/runningsound';
+import { playRunningSound } from './audio/runningsound';
+import { loadCatchKnifeSound } from './audio/catchKnifeSound.ts';
+import { playcatchKnifeSound } from './audio/catchKnifeSound.ts';
 
 export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefined>): void {
   const k = initKaplay(gameRef);
 
   loadPlayerSprites(k);
-  loadGroundMobSprites(k);
+  loadGroundObstacleSprite(k);
+  loadTopObstacleSprite(k);
   loadFloorSprites(k);
+  loadKnifeSprite(k);
+  loadMusic(k);
+  loadGameOver(k);
+  loadRunningSound(k);
+  loadCatchKnifeSound(k);
 
   k.scene('mainMenu', () => {
     k.setBackground(40, 100, 100);
@@ -29,35 +47,21 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
   });
 
   k.scene('game', () => {
-    // k.debug.log('Scene staxrted');
+    const music = playMusic(k);
+    const running = playRunningSound(k);
+
     k.setGravity(4000);
 
     k.setBackground(100, 10, 102);
     k.add([k.text('game'), k.pos(24, 24), { value: 0 }]);
     addButton(k, 'Game Over', k.vec2(200, 200), 'gameOver');
 
-    const player = addPlayer(k);
+    const player = spawnPlayer(k);
 
-    addFloor(k);
-
-    const [firstTile, secondTile] = addFloorSprites(k);
-    const floorTiles = [{ speed: -400, sections: [firstTile, secondTile] }];
-
-    k.onUpdate(() => {
-      for (const tile of floorTiles) {
-        if (tile.sections[1].pos.x < 0) {
-          tile.sections[0].moveTo(tile.sections[1].pos.x + k.width(), k.height() - 50);
-          const repositionTile = tile.sections.shift();
-          tile.sections.push(repositionTile);
-        }
-
-        tile.sections[0].move(tile.speed, 0);
-        tile.sections[1].move(tile.speed, 0);
-      }
-    });
-
-    spawnMobs(k);
-    spawnCoins(k);
+    floorColision(k);
+    floorAnim(k);
+    spawnObstacles(k);
+    spawnKnives(k);
 
     const scoreLabel = k.add([
       k.text('score: 0'),
@@ -69,26 +73,40 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
     player.onUpdate(() => {
       k.onKeyPress('space', () => {
         if (player.isGrounded()) {
+          running.paused = true;
           player.jump(1500);
         }
       });
+      if (running.paused === true) {
+        k.wait(0.6, () => {
+          running.paused = false;
+        });
+      }
     });
 
     player.onCollide('scorePoint', () => {
       scoreLabel.value += 1;
       scoreLabel.text = `score: ${scoreLabel.value}`;
     });
-    player.onCollide('scoreCoin', () => {
+    player.onCollide('scoreCoin', coin => {
+      playcatchKnifeSound(k);
+      k.destroy(coin);
       scoreLabel.value += 10;
       scoreLabel.text = `score: ${scoreLabel.value}`;
     });
 
-    player.onCollide('mob', () => {
-      k.go('gameOver');
+    player.onCollide('groundObstacle', () => {
+      k.go('gameOver', music, running);
+    });
+    player.onCollide('topObstacle', () => {
+      k.go('gameOver', music, running);
     });
   });
 
-  k.scene('gameOver', () => {
+  k.scene('gameOver', (music, running) => {
+    music.paused = !music.paused;
+    running.paused = true;
+    playgameOver(k);
     k.setBackground(120, 200, 192);
     k.add([k.text('gameOver'), k.pos(24, 24), { value: 0 }]);
     addButton(k, 'Main Menu', k.vec2(200, 200), 'mainMenu');

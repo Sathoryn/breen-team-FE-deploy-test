@@ -12,6 +12,7 @@ export default function initKaplay(gameRef: RefObject<HTMLCanvasElement>) {
     canvas: gameRef.current,
     pixelDensity: devicePixelRatio,
     crisp: true,
-    maxFPS: 60
+    maxFPS: 60,
+    backgroundAudio: true
   });
 }
