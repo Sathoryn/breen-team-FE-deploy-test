@@ -1,16 +1,35 @@
 .minesweeper {
   width: fit-content;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 2rem;
   margin: 0 auto;
+  position: relative;
+  padding: 2rem 0;
+
   .minesweeper__title {
     color: var(--snow-storm-dark);
-    text-shadow: 5px 5px 0 rgba(0, 0, 0, 1);
-    font-size: 3rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    h1 {
+      text-shadow: 5px 5px 0 rgba(0, 0, 0, 1);
+      font-size: 3rem;
+    }
+    > button {
+      background-color: transparent;
+      border: none;
+      color: var(--snow-storm-dark);
+      filter: drop-shadow(5px 5px 0 rgba(0, 0, 0, 1));
+      max-height: fit-content;
+      cursor: pointer;
+      line-height: 0;
+    }
   }
   .minesweeper__details {
     color: var(--snow-storm-dark);
@@ -30,5 +49,30 @@
     display: grid;
     grid-template-columns: repeat(15, 1fr);
     gap: 0.25rem;
+    position: relative;
+
+    & .gameOver {
+      position: absolute;
+      display: flex;
+      width: calc(100% + 10px);
+      height: calc(100% + 10px);
+      top: -5px;
+      left: -5px;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 0.25rem;
+      box-shadow: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(2px);
+      font-size: 2rem;
+      text-shadow: 5px 5px 0 rgba(0, 0, 0, 1);
+      &.win {
+        color: var(--aurora-green);
+      }
+      &.lose {
+        color: var(--aurora-red);
+      }
+    }
   }
 }

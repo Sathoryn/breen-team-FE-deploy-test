@@ -1,8 +1,9 @@
 import { useState, type SyntheticEvent } from 'react';
 import { useInterval } from 'usehooks-ts';
+import { IoMdSettings } from 'react-icons/io';
 import { IoFlag } from 'react-icons/io5';
 import { FaClock } from 'react-icons/fa6';
-import ScoreSubmit from '../ScoreSubmit/ScoreSubmit';
+import Modal from '../Modal/Modal';
 import MinesweeperCell from '../DebuggerCell/DebuggerCell';
 import Button from '../Button/Button';
 import { calculateBugs, createGrid, revealBugs, revealGridRecursively } from './functions';
@@ -20,7 +21,8 @@ const Minesweeper = () => {
   const [gameOver, setGameOver] = useState(false);
   const [complete, setComplete] = useState(false);
   const [flags, setFlags] = useState(calculateBugs(...gridDimensions));
-  const [showModal, setShowModal] = useState(false);
+  const [showScoreSubmit, setShowScoreSubmit] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   useInterval(
     () => {
@@ -92,9 +94,44 @@ const Minesweeper = () => {
     setGrid(newGrid);
   };
 
+  const handleGameReset = (x?: number, y?: number) => {
+    setGameOver(false);
+    setComplete(false);
+    setTime(0);
+    setStartTime(0);
+    setTimerRunning(false);
+    if (x && y) {
+      setFlags(calculateBugs(x, y));
+      setGrid(createGrid(x, y));
+    } else {
+      setFlags(calculateBugs(...dimensions));
+      setGrid(createGrid(...dimensions));
+    }
+  };
+
+  const handleChangeSettings = (x: number, y: number) => {
+    setShowSettings(false);
+    setDimensions([x, y]);
+    setGrid(createGrid(x, y));
+    handleGameReset(x, y);
+  };
+
   return (
     <main className='minesweeper'>
-      <h1 className='minesweeper__title'>Debugger</h1>
+      <div className='minesweeper__title'>
+        <h1>Debugger</h1>
+        <button onClick={() => setShowSettings(true)}>
+          <IoMdSettings />
+        </button>
+        {showSettings && (
+          <Modal onClose={() => setShowSettings(false)}>
+            <h2>Difficulty</h2>
+            <Button onClick={() => handleChangeSettings(9, 9)}>Easy</Button>
+            <Button onClick={() => handleChangeSettings(16, 16)}>Intermediate</Button>
+            <Button onClick={() => handleChangeSettings(16, 30)}>Advanced</Button>
+          </Modal>
+        )}
+      </div>
       <div className='minesweeper__details'>
         <span>
           <IoFlag />
@@ -105,13 +142,13 @@ const Minesweeper = () => {
           {time}
         </span>
       </div>
-      {gameOver && <h3>You lose!</h3>}
-      {complete && <h3>You win!</h3>}
       <div
         className='minesweeper__container'
         style={{ gridTemplateColumns: `repeat(${dimensions[0]}, 1fr)` }}
         onContextMenu={e => e.preventDefault()}
       >
+        {gameOver && <h3 className='gameOver lose'>You lose!</h3>}
+        {complete && <h3 className='gameOver win'>You win!</h3>}
         {grid.map(row =>
           row.map((cell: DebuggerCellData) => (
             <MinesweeperCell
@@ -123,16 +160,17 @@ const Minesweeper = () => {
           ))
         )}
       </div>
-      {complete && <Button onClick={() => setShowModal(true)}>Submit Score</Button>}
-      {showModal && (
-        <ScoreSubmit onClose={() => setShowModal(false)}>
+      {(gameOver || complete) && <Button onClick={handleGameReset}>Reset grid</Button>}
+      {complete && <Button onClick={() => setShowScoreSubmit(true)}>Submit Score</Button>}
+      {showScoreSubmit && (
+        <Modal onClose={() => setShowScoreSubmit(false)}>
           <h2>Submit your score!</h2>
           <h3>Finished in {time} seconds!</h3>
           <form action=''>
             <input type='text' maxLength={3} />
             <Button>Sumbit</Button>
           </form>
-        </ScoreSubmit>
+        </Modal>
       )}
     </main>
   );

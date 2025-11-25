@@ -1,13 +1,13 @@
 import { useEffect, type ReactNode } from 'react';
 import { motion } from 'motion/react';
-import './ScoreSubmit.css';
+import './Modal.css';
 
-type ScoreSubmitProps = {
+type ModalProps = {
   onClose: () => void;
   children: ReactNode;
 };
 
-const ScoreSubmit = ({ onClose, children }: ScoreSubmitProps) => {
+const Modal = ({ onClose, children }: ModalProps) => {
   useEffect(() => {
     document.body.classList.add('overflow-hidden');
 
@@ -36,4 +36,4 @@ const ScoreSubmit = ({ onClose, children }: ScoreSubmitProps) => {
   );
 };
 
-export default ScoreSubmit;
+export default Modal;
