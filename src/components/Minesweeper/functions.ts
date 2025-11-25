@@ -81,7 +81,6 @@ export const revealGridRecursively = (
       }
     }
   }
-  structuredClone(grid);
 
   return newGrid;
 };
