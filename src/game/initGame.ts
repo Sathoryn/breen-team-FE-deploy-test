@@ -22,7 +22,10 @@ import { backgroundAnim } from './backgroundAnim.ts';
 import { spawnBackgroundObjects } from './spawnBackgroundObjects.ts';
 import { spawnTorch } from './spawnTorches.ts';
 
-export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefined>): void {
+export default function initGame(
+  gameRef: RefObject<HTMLCanvasElement>,
+  setScore: (score: number) => void
+): () => void {
   const k = initKaplay(gameRef);
 
   loadSprites(k);
@@ -129,7 +132,7 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
       k.outline(4),
       k.color(255, 255, 255)
     ]);
-   
+
     k.add([
       k.text(`USER:`),
       k.scale(1),
@@ -139,14 +142,18 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
     ]);
     inputFrame.add([
       k.text(``),
-      k.textInput(true,3),
+      k.textInput(true, 3),
       k.scale(1),
       k.anchor('center'),
-      k.color(0, 0, 0),
+      k.color(0, 0, 0)
     ]);
+
+    setScore(score);
 
     addButton(k, 'Main Menu', k.vec2(k.width() / 2, 400), 'mainMenu');
   });
 
   k.go('game');
+
+  return k.quit;
 }
