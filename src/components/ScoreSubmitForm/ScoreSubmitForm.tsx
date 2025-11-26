@@ -29,7 +29,7 @@ const ScoreSubmitForm = ({ gameId, score }: ScoreSubmitFormProps) => {
         name='username'
         id='username'
         value={username}
-        onChange={e => handleChange(e)}
+        onChange={handleChange}
         minLength={3}
         maxLength={3}
       />
