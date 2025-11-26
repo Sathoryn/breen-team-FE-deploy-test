@@ -6,6 +6,10 @@ export function loadSprites(k: KAPLAYCtx) {
   k.loadSprite('backgroundObject', './cage.png');
   k.loadSprite('groundObstacle', './bigRock.png');
   k.loadSprite('topObstacle', './stalactite.png');
+  k.loadSprite('mainMenuImage', './mainMenuImage.png');
+  k.loadSprite('buttonImage', './buttonImage.png');
+  k.loadSprite('labelImage', './labelImage.png');
+
   k.loadSprite('torch', './torch.png', {
     sliceX: 4,
     sliceY: 1,

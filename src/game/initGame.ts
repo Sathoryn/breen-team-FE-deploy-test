@@ -21,6 +21,7 @@ import { floorAnim } from './floorAnim';
 import { backgroundAnim } from './backgroundAnim.ts';
 import { spawnBackgroundObjects } from './spawnBackgroundObjects.ts';
 import { spawnTorch } from './spawnTorches.ts';
+import { spawnMainMenuImage } from './mainMenuImage.ts';
 
 export default function initGame(
   gameRef: RefObject<HTMLCanvasElement>,
@@ -32,9 +33,8 @@ export default function initGame(
   loadAudio(k);
 
   k.scene('mainMenu', () => {
-    k.setBackground(40, 100, 100);
-    addButton(k, 'Start', k.vec2(k.width() / 2, 200), 'game');
-    // addButton(k, 'Top Scores', k.vec2(k.width() / 2, 300), 'topScores');
+    spawnMainMenuImage(k);
+    addButton(k, 'Start', k.vec2(k.width() / 2, 550), 'game');
   });
 
   k.scene('topScores', () => {
@@ -104,48 +104,26 @@ export default function initGame(
     running.paused = true;
     playgameOver(k);
     k.setBackground(0, 0, 0);
-    k.add([k.pos(0, 0), k.rect(1282, 720), k.color(220, 70, 70)]);
+    k.add([k.pos(0, 0), k.rect(1282, 720), k.color(0, 0, 0)]);
 
     const scoreFrame = k.add([
-      k.rect(350, 60, { radius: 8 }),
+      k.sprite('labelImage'),
+
       k.pos(k.width() / 2, 200),
       k.area(),
-      k.scale(1),
+      k.scale(2),
       k.anchor('center'),
       k.outline(4),
       k.color(255, 255, 255)
     ]);
 
     scoreFrame.add([
-      k.text(`FINAL SCORE: ${score}`),
-      k.scale(1),
-      k.anchor('center'),
-      k.color(0, 0, 0)
-    ]);
 
-    const inputFrame = k.add([
-      k.rect(350, 60, { radius: 8 }),
-      k.pos(k.width() / 2, 300),
-      k.area(),
+      k.text(`FINAL SCORE: ${score}`, { size: 20 }),
       k.scale(1),
       k.anchor('center'),
-      k.outline(4),
-      k.color(255, 255, 255)
-    ]);
+      k.color(255, 153, 0)
 
-    k.add([
-      k.text(`USER:`),
-      k.scale(1),
-      k.anchor('center'),
-      k.color(0, 0, 0),
-      k.pos(k.width() / 2 - 250, 300)
-    ]);
-    inputFrame.add([
-      k.text(``),
-      k.textInput(true, 3),
-      k.scale(1),
-      k.anchor('center'),
-      k.color(0, 0, 0)
     ]);
 
     setScore(score);
@@ -153,7 +131,11 @@ export default function initGame(
     addButton(k, 'Main Menu', k.vec2(k.width() / 2, 400), 'mainMenu');
   });
 
+
+  k.go('mainMenu');
+
   k.go('game');
 
   return k.quit;
+
 }
