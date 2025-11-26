@@ -43,10 +43,10 @@ export function topObstacles(k: KAPLAYCtx) {
     k.sprite('topObstacle'),
     k.pos(k.width() + 100, k.height() - 300),
     k.area({
-      shape: new k.Rect(k.vec2(0, 0), 40, 30)
+      shape: new k.Rect(k.vec2(0, 0), 10, 30)
     }),
     k.anchor('bot'),
-    k.scale(1.5),
+    k.scale(4),
     k.move(k.vec2(-1, 0), 400),
     'topObstacle'
   ]);

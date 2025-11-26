@@ -20,6 +20,7 @@ import { spawnKnives } from './spawnKnives.ts';
 import { floorAnim } from './floorAnim';
 import { backgroundAnim } from './backgroundAnim.ts';
 import { spawnBackgroundObjects } from './spawnBackgroundObjects.ts';
+import { spawnTorch } from './spawnTorches.ts';
 
 export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefined>): void {
   const k = initKaplay(gameRef);
@@ -29,8 +30,8 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
 
   k.scene('mainMenu', () => {
     k.setBackground(40, 100, 100);
-    addButton(k, 'Start', k.vec2(200, 100), 'game');
-    addButton(k, 'Top Scores', k.vec2(200, 200), 'topScores');
+    addButton(k, 'Start', k.vec2(k.width() / 2, 200), 'game');
+    // addButton(k, 'Top Scores', k.vec2(k.width() / 2, 300), 'topScores');
   });
 
   k.scene('topScores', () => {
@@ -49,21 +50,15 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
     addButton(k, 'Game Over', k.vec2(200, 200), 'gameOver');
 
     backgroundAnim(k);
-
-    k.setBackground(100, 10, 102);
-    spawnBackgroundObjects(k);
+    k.setBackground(0, 0, 0);
     const player = spawnPlayer(k);
+
+    spawnTorch(k);
+    spawnBackgroundObjects(k);
     floorColision(k);
     floorAnim(k);
     spawnObstacles(k);
     spawnKnives(k);
-
-    const scoreLabel = k.add([
-      k.text('score: 0'),
-      k.pos(200, 100),
-      { value: 0 },
-      k.stay(['gameOver'])
-    ]);
 
     player.onUpdate(() => {
       k.onKeyPress('space', () => {
@@ -79,32 +74,78 @@ export default function initGame(gameRef: RefObject<HTMLCanvasElement | undefine
       }
     });
 
+    const scoreLabel = k.add([k.text('SCORE: 0'), k.pos(100, 50), k.scale(0.7), { value: 0 }]);
+
     player.onCollide('scorePoint', () => {
       scoreLabel.value += 1;
-      scoreLabel.text = `score: ${scoreLabel.value}`;
+      scoreLabel.text = `SCORE: ${scoreLabel.value}`;
     });
     player.onCollide('knife', knife => {
       playcatchKnifeSound(k);
       k.destroy(knife);
       scoreLabel.value += 10;
-      scoreLabel.text = `score: ${scoreLabel.value}`;
+      scoreLabel.text = `SCORE: ${scoreLabel.value}`;
     });
 
     player.onCollide('groundObstacle', () => {
-      k.go('gameOver', music, running);
+      k.go('gameOver', music, running, scoreLabel.value);
     });
+
     player.onCollide('topObstacle', () => {
-      k.go('gameOver', music, running);
+      k.go('gameOver', music, running, scoreLabel.value);
     });
   });
 
-  k.scene('gameOver', (music, running) => {
+  k.scene('gameOver', (music, running, score) => {
     music.paused = !music.paused;
     running.paused = true;
     playgameOver(k);
-    k.setBackground(120, 200, 192);
-    k.add([k.text('gameOver'), k.pos(24, 24), { value: 0 }]);
-    addButton(k, 'Main Menu', k.vec2(200, 200), 'mainMenu');
+    k.setBackground(0, 0, 0);
+    k.add([k.pos(0, 0), k.rect(1282, 720), k.color(220, 70, 70)]);
+
+    const scoreFrame = k.add([
+      k.rect(350, 60, { radius: 8 }),
+      k.pos(k.width() / 2, 200),
+      k.area(),
+      k.scale(1),
+      k.anchor('center'),
+      k.outline(4),
+      k.color(255, 255, 255)
+    ]);
+
+    scoreFrame.add([
+      k.text(`FINAL SCORE: ${score}`),
+      k.scale(1),
+      k.anchor('center'),
+      k.color(0, 0, 0)
+    ]);
+
+    const inputFrame = k.add([
+      k.rect(350, 60, { radius: 8 }),
+      k.pos(k.width() / 2, 300),
+      k.area(),
+      k.scale(1),
+      k.anchor('center'),
+      k.outline(4),
+      k.color(255, 255, 255)
+    ]);
+   
+    k.add([
+      k.text(`USER:`),
+      k.scale(1),
+      k.anchor('center'),
+      k.color(0, 0, 0),
+      k.pos(k.width() / 2 - 250, 300)
+    ]);
+    inputFrame.add([
+      k.text(``),
+      k.textInput(true,3),
+      k.scale(1),
+      k.anchor('center'),
+      k.color(0, 0, 0),
+    ]);
+
+    addButton(k, 'Main Menu', k.vec2(k.width() / 2, 400), 'mainMenu');
   });
 
   k.go('game');

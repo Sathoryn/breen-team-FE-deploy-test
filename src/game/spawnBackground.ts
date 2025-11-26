@@ -5,8 +5,8 @@ export function spawnBackground(k: KAPLAYCtx) {
     k.sprite('background'),
     k.pos(0, k.height() - 50),
     k.body({ isStatic: true }),
-    k.anchor('bot'),
-    k.scale(k.vec2(4, 2)),
+    k.anchor('botleft'),
+    k.scale(k.vec2(2)),
     'background'
   ]);
 
@@ -14,8 +14,8 @@ export function spawnBackground(k: KAPLAYCtx) {
     k.sprite('background'),
     k.pos(k.width(), k.height() - 50),
     k.body({ isStatic: true }),
-    k.anchor('bot'),
-    k.scale(k.vec2(4, 2)),
+    k.anchor('botleft'),
+    k.scale(k.vec2(2)),
     'background'
   ]);
 

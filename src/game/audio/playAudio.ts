@@ -32,3 +32,11 @@ export function playcatchKnifeSound(k: KAPLAYCtx) {
     paused: false
   });
 }
+
+export function playbuttonClick(k: KAPLAYCtx) {
+  return k.play('buttonClick', {
+    loop: false,
+    volume: 0.1,
+    paused: false
+  });
+}

@@ -10,6 +10,7 @@ export function spawnPlayer(k: KAPLAYCtx) {
     k.body(),
     k.anchor('bot'),
     k.scale(0.5),
+    k.z(10),
     'player'
   ]);
 }
