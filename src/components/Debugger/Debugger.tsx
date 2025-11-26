@@ -7,6 +7,7 @@ import Nav from '../Nav/Nav';
 import Modal from '../Modal/Modal';
 import MinesweeperCell from '../DebuggerCell/DebuggerCell';
 import Button from '../Button/Button';
+import ScoreSubmitForm from '../ScoreSubmitForm/ScoreSubmitForm';
 import { calculateBugs, createGrid, revealBugs, revealGridRecursively } from './functions';
 import type { DebuggerCellData } from '../../types';
 import './Debugger.css';
@@ -167,10 +168,7 @@ const Minesweeper = () => {
         <Modal onClose={() => setShowScoreSubmit(false)}>
           <h2>Submit your score!</h2>
           <h3>Finished in {time} seconds!</h3>
-          <form action=''>
-            <input type='text' maxLength={3} />
-            <Button>Sumbit</Button>
-          </form>
+          <ScoreSubmitForm gameId={1} score={time} />
         </Modal>
       )}
       <Nav />

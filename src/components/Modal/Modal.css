@@ -20,6 +20,6 @@
     background-color: var(--aurora-yellow);
     padding: 2rem 3rem;
     color: var(--polar-night-darker);
-    box-shadow: 5px 5px 0 rgba(0, 0, 0, 1);
+    box-shadow: var(--block-shadow);
   }
 }

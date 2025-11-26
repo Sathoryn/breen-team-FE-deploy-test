@@ -18,14 +18,14 @@
     align-items: flex-end;
 
     h1 {
-      text-shadow: 5px 5px 0 rgba(0, 0, 0, 1);
+      text-shadow: var(--block-shadow);
       font-size: 3rem;
     }
     > button {
       background-color: transparent;
       border: none;
       color: var(--snow-storm-dark);
-      filter: drop-shadow(5px 5px 0 rgba(0, 0, 0, 1));
+      filter: drop-shadow(var(--block-shadow));
       max-height: fit-content;
       cursor: pointer;
       line-height: 0;
@@ -33,7 +33,7 @@
   }
   .minesweeper__details {
     color: var(--snow-storm-dark);
-    text-shadow: 5px 5px 0 rgba(0, 0, 0, 1);
+    text-shadow: var(--block-shadow);
     font-size: 2rem;
     display: flex;
     justify-content: space-between;
@@ -66,7 +66,7 @@
       box-shadow: rgba(0, 0, 0, 0.5);
       backdrop-filter: blur(2px);
       font-size: 2rem;
-      text-shadow: 5px 5px 0 rgba(0, 0, 0, 1);
+      text-shadow: var(--block-shadow);
       &.win {
         color: var(--aurora-green);
       }

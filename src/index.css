@@ -16,6 +16,7 @@
   --aurora-yellow: #ebcb8b;
   --aurora-green: #a3be8c;
   --aurora-purple: #b48ead;
+  --block-shadow: 5px 5px 0 rgba(0, 0, 0, 1);
 }
 html,
 body,

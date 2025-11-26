@@ -9,7 +9,7 @@
 
   .games__title {
     color: var(--snow-storm-dark);
-    text-shadow: 5px 5px 0 rgba(0, 0, 0, 1);
+    text-shadow: var(--block-shadow);
     font-size: 3rem;
   }
 }
