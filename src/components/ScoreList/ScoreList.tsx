@@ -1,9 +1,10 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getScores } from '../../api';
 import Loading from '../Loading/Loading';
 import Error from '../Error/Error';
 import ScoreRow from '../ScoreRow/ScoreRow';
 import './ScoreList.css';
+import type { ReactNode } from 'react';
 
 const ScoreList = () => {
   const { isLoading, isError, data, error } = useQuery({
@@ -16,7 +17,7 @@ const ScoreList = () => {
   }
 
   if (isError) {
-    return <Error>{error.message}</Error>;
+    return <Error>{error as ReactNode}</Error>;
   }
 
   return (
