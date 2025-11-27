@@ -10,9 +10,7 @@ export function floorAnim(k: KAPLAYCtx) {
       if (tile.sections[1].pos.x < 0) {
         tile.sections[0].moveTo(tile.sections[1].pos.x + k.width(), k.height() - 66);
         const repositionTile = tile.sections.shift();
-        if (repositionTile) {
-          tile.sections.push(repositionTile);
-        }
+        tile.sections.push(repositionTile!);
       }
 
       tile.sections[0].move(tile.speed, 0);

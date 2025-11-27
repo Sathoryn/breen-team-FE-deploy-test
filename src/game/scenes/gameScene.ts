@@ -11,7 +11,7 @@ import { spawnObstacles } from '../spawnObjects/spawnObstacles.ts';
 import { spawnKnives } from '../spawnObjects/spawnKnives.ts';
 import { floorAnim } from '../floorAnim';
 import { backgroundAnim } from '../backgroundAnim.ts';
-import { spawnBackgroundObjects } from '../spawnObjects/spawnBackgroundObjects.ts';
+import { spawnCages } from '../spawnObjects/spawnCages.ts';
 import { spawnTorch } from '../spawnObjects/spawnTorches.ts';
 
 
@@ -33,7 +33,7 @@ export function playGame(k: KAPLAYCtx) {
     floorAnim(k);
     spawnObstacles(k);
     spawnKnives(k);
-    spawnBackgroundObjects(k);
+    spawnCages(k);
     spawnTorch(k);
   });
 }
