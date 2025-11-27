@@ -1,10 +1,18 @@
 import HomeButton from '../components/HomeButton/HomeButton';
+import Orc from '../components/Orc/Orc';
 import './HomePage.css';
 
 const HomePage = () => {
   return (
     <main className='homePage'>
-      <h1>Burnout Breakers</h1>
+      <div className='homePage__title'>
+        <Orc />
+        <h1>
+          {' '}
+          Burnout <br />
+          Breakers
+        </h1>
+      </div>
       <HomeButton to='/games' animate>
         View Games
       </HomeButton>

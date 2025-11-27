@@ -7,6 +7,12 @@
   justify-content: center;
   gap: 2rem;
 
+  .homePage__title {
+    display: flex;
+    align-items: center;
+    padding-bottom: 2rem;
+  }
+
   h1 {
     font-size: 7rem;
     line-height: 7rem;
@@ -14,5 +20,13 @@
     color: var(--aurora-yellow);
     text-shadow: var(--block-shadow);
     text-transform: uppercase;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .homePage {
+    h1 {
+      font-size: 4rem;
+      line-height: 4rem;
+    }
   }
 }
