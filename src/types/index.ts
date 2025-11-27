@@ -1,7 +1,10 @@
 export type Score = {
   score_id: number;
-  username: string;
   score: number;
+  user_id: number;
+  username: string;
+  game_id: string;
+  created_on: string;
 };
 
 export type DebuggerCellData = {
