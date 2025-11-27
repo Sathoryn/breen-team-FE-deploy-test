@@ -7,12 +7,12 @@ export default function initKaplay(gameRef: RefObject<HTMLCanvasElement>) {
     height: 720,
     letterbox: true,
     global: false,
-    debug: true, // TODO: put back to false in prod
+    debug: true, // TODO: put back to false
     debugKey: 'f1',
     canvas: gameRef.current,
     pixelDensity: devicePixelRatio,
     crisp: true,
     maxFPS: 60,
-    // backgroundAudio: true
+    backgroundAudio: true
   });
 }

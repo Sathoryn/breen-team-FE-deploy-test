@@ -4,6 +4,7 @@ import { addButton } from '../button.ts';
 
 export function gameOver(k: KAPLAYCtx, setScore: (score: number) => void) {
   k.scene('gameOver', (music, running, score) => {
+    k.pos(k.width() / 2, k.height() / 2);
     music.paused = !music.paused;
     running.paused = true;
     playgameOver(k);

@@ -10,7 +10,6 @@ import { backgroundAnim } from '../backgroundAnim.ts';
 import { spawnBackgroundObjects } from '../spawnObjects/spawnBackgroundObjects.ts';
 import { spawnTorch } from '../spawnObjects/spawnTorches.ts';
 
-
 export function playGame(k: KAPLAYCtx) {
   k.scene('game', () => {
     const music = playMusic(k);
@@ -31,6 +30,12 @@ export function playGame(k: KAPLAYCtx) {
 
     player.onUpdate(() => {
       k.onKeyPress('space', () => {
+        if (player.isGrounded()) {
+          running.paused = true;
+          player.jump(1500);
+        }
+      });
+      k.onClick(() => {
         if (player.isGrounded()) {
           running.paused = true;
           player.jump(1500);
