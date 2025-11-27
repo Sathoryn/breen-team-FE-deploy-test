@@ -7,4 +7,5 @@
   gap: 1rem;
   background-color: var(--snow-storm-dark);
   padding: 2rem;
+  box-shadow: var(--block-shadow);
 }
