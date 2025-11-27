@@ -10,7 +10,7 @@ const HomePage = () => {
         <h1>
           {' '}
           Burnout <br />
-          Breakers
+          <span>Breakers</span>
         </h1>
       </div>
       <HomeButton to='/games' animate>

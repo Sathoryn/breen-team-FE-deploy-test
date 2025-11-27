@@ -20,6 +20,10 @@
     color: var(--aurora-yellow);
     text-shadow: var(--block-shadow);
     text-transform: uppercase;
+
+    span {
+      color: var(--aurora-red);
+    }
   }
 }
 @media screen and (max-width: 1200px) {
