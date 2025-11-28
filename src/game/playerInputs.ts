@@ -1,8 +1,9 @@
 import type { AudioPlay, KAPLAYCtx, GameObj } from 'kaplay';
 
 export function playerInputs(k: KAPLAYCtx, player: GameObj, running: AudioPlay) {
-
-      k.onKeyPress('space', () => {
+k.ready(() =>{
+      
+      k.onKeyPown('Space', () => {
       if (player.isGrounded()) {
         running.paused = true;
         player.jump(1500);
@@ -14,6 +15,7 @@ export function playerInputs(k: KAPLAYCtx, player: GameObj, running: AudioPlay) 
         player.jump(1500);
       }
     });
+})
   player.onUpdate(() => {
 
     if (running.paused === true) {
