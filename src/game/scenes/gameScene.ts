@@ -14,12 +14,20 @@ import { backgroundAnim } from '../backgroundAnim.ts';
 import { spawnCages } from '../spawnObjects/spawnCages.ts';
 import { spawnTorch } from '../spawnObjects/spawnTorches.ts';
 
-
 export function playGame(k: KAPLAYCtx) {
   k.scene('game', () => {
     const music = playMusic(k);
     const running = playRunningSound(k);
-    const scoreLabel = k.add([k.text('SCORE: 0'), k.pos(100, 50), k.scale(0.7), { value: 0 }]);
+
+    const scoreLabel = k.add([
+      k.text('SCORE: 0'),
+      { font: 'font' },
+      k.pos(100, 50),
+      k.scale(0.7),
+      { value: 0 },
+      k.z(10),
+      k.color(255, 153, 70)
+    ]);
 
     k.setGravity(4000);
     backgroundAnim(k);

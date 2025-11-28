@@ -1,6 +1,8 @@
 import type { KAPLAYCtx } from 'kaplay';
 
 export function loadSprites(k: KAPLAYCtx) {
+  k.loadFont('font', './PixelifySans.ttf');
+
   k.loadSprite('floorSprite', './floor.png');
   k.loadSprite('background', './background.png');
   k.loadSprite('backgroundObject', './cage.png');
@@ -9,6 +11,7 @@ export function loadSprites(k: KAPLAYCtx) {
   k.loadSprite('mainMenuImage', './mainMenuImage.png');
   k.loadSprite('buttonImage', './buttonImage.png');
   k.loadSprite('labelImage', './labelImage.png');
+  k.loadSprite('gameOverImage', './gameOverImage.png');
 
   k.loadSprite('torch', './torch.png', {
     sliceX: 4,

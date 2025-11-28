@@ -7,18 +7,22 @@ import { mainMenu } from './scenes/mainMenuScene.ts';
 import { playGame } from './scenes/gameScene.ts';
 import { gameOver } from './scenes/gameOverScene.ts';
 
-export default function initGame(gameRef: RefObject<HTMLCanvasElement>,setScore: (score: number) => void): () => void {
+export default function initGame(
+  gameRef: RefObject<HTMLCanvasElement>,
+  setScore: (score: number) => void
+): () => void {
   const k = initKaplay(gameRef);
 
   loadSprites(k);
-
   loadAudio(k);
-
   mainMenu(k);
   playGame(k);
-  gameOver(k,setScore)
+  gameOver(k, setScore);
 
-  k.go('game');
-  
-  return k.quit;
+  k.go('mainMenu');
+
+  return () => {
+    k.go('gameOver');
+    k.quit();
+  };
 }
