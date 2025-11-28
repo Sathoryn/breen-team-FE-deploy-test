@@ -10,15 +10,21 @@ type ScoreSubmitFormProps = {
 const ScoreSubmitForm = ({ gameId, score }: ScoreSubmitFormProps) => {
   const [username, setUsername] = useState('');
   const [validate, setValidate] = useState(false);
+  const [isValid, setIsValid] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
+    if (e.target.value.length === 3) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setValidate(true);
-    console.log({ username, gameId, score });
+    if (isValid) console.log({ username, gameId, score });
   };
 
   return (
